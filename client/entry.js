@@ -1,5 +1,10 @@
 var bakerHoods = require('../data/neighborhoods/bakersfield.json');
 var bakerHomes = require('../data/kern.json');
+var predictions = require('../data/quandl/real_predictions.json');
+
+function isFuture() {
+  return location.pathname.indexOf('future') >= 0;
+}
 
 function getCoords(coords) {
   return coords.map((coord) => {
@@ -7,7 +12,7 @@ function getCoords(coords) {
   });
 }
 
-var COLORS = ['#e86828', '#828282'];
+var COLORS = ['#828282', '#e86828'];
 
 function getCenter(coords) {
   var latSum = 0;
@@ -55,7 +60,10 @@ global.initMap = () => {
   });
 
   bakerHoods.forEach((hood, index) => {
-    var color = COLORS[index % 2];
+    var present = index % 2;
+    // var color = COLORS[good];
+    var future = predictions[hood.properties.REGIONID] || present;
+    var color = COLORS[isFuture() ? future : present];
     var hoodName = hood.properties.NAME;
     var myData = hoodData[hood.properties.REGIONID] || {};
 
