@@ -2,9 +2,7 @@ var bakerHoods = require('../data/neighborhoods/bakersfield.json');
 var bakerHomes = require('../data/kern.json');
 var predictions = require('../data/quandl/real_predictions.json');
 
-function isFuture() {
-  return location.pathname.indexOf('future') >= 0;
-}
+var isFuture = location.pathname.indexOf('future') >= 0;
 
 function getCoords(coords) {
   return coords.map((coord) => {
@@ -29,7 +27,31 @@ function getCenter(coords) {
 var lastWindow = null;
 var hoodData = {};
 
+var hoodsThatChange = [];
+
 global.initMap = () => {
+  window.document.getElementById("switch").addEventListener('click', (event) => {
+    event.preventDefault();
+
+    isFuture = !isFuture;
+
+    window.document.getElementById("switch").innerHTML =
+      isFuture ? 'Show current data' : 'Show future predictions';
+
+    window.document.getElementById("header").innerHTML =
+      isFuture ? 'Future predictions for Bakersfield, CA' : 'Current data for Bakersfield, CA'
+
+    hoodsThatChange.forEach((hood) => {
+      var color = COLORS[isFuture ? hood.future : hood.present];
+      hood.polygons.forEach((polygon) => {
+        polygon.setOptions({
+          strokeColor: color,
+          fillColor: color,
+        });
+      });
+    });
+  });
+
   var center = { lat: 35.3733, lng: -119.0187 };
   var map = new google.maps.Map(document.getElementById('map'), {
     center,
@@ -60,11 +82,12 @@ global.initMap = () => {
     var present = index % 2;
     // var color = COLORS[good];
     var future = predictions[hood.properties.REGIONID] || present;
-    var color = COLORS[isFuture() ? future : present];
+
+    var color = COLORS[isFuture ? future : present];
     var hoodName = hood.properties.NAME;
     var myData = hoodData[hood.properties.REGIONID] || {};
 
-    return hood.geometry.coordinates.map((coords) => {
+    var polygons = hood.geometry.coordinates.map((coords) => {
       // Construct the polygon.
       var polygon = new google.maps.Polygon({
         paths: getCoords(coords),
@@ -96,5 +119,11 @@ global.initMap = () => {
         lastWindow = infowindow;
       });
     });
+
+    if (future !== present) {
+      hoodsThatChange.push({ polygons, future, present });
+    }
+
+    return polygons;
   });
 };

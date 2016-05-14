@@ -5,10 +5,10 @@ html
     link(href='styles/main.css', rel='stylesheet', type='text/css')
   body
     div(id="topbar")
-      h2
+      h2#header
         = future ? 'Future predictions ' : 'Current data '
         = 'for Bakersfield, CA'
-      a(href=(future ? '/' : '/future'), class="switch")
+      a(id="switch", href=(future ? '/' : '/future'), class="switch")
         = future ? 'Show current data' : 'Show future predictions'
     div(id="map-container")
       div(id="map")
