@@ -10,7 +10,7 @@ var MongoClient = mongodb.MongoClient;
 var url = 'mongodb://localhost:27017/grid';
 
 module.exports = function() {
-    
+
     return new Promise(function(resolve, reject) {
         // Use connect method to connect to the Server
         MongoClient.connect(url, function (err, db) {
@@ -28,7 +28,7 @@ module.exports = function() {
                     if (err) {
                         console.log(err);
                     } else if (result.length) {
-                        //console.log('Found:', result); 
+                        //console.log('Found:', result);
                         for (var i=0; i < result.length; i++) {
                             var curr = result[i];
                             var address = curr['addresses[0]'];
