@@ -4,6 +4,15 @@ var predictions = require('../data/quandl/real_predictions.json');
 
 var isFuture = location.pathname.indexOf('future') >= 0;
 
+var switchToFuture = {
+  275377: true,
+  275333: true,
+  275721: true,
+  275786: true,
+  275334: true,
+  276536: true,
+}
+
 var withSolar = {
   273528: true,
   274019: true,
@@ -26,7 +35,7 @@ function getCoords(coords) {
   });
 }
 
-var COLORS = ['#828282', '#e86828'];
+var COLORS = ['#828282', '#e86828', '#e25010'];
 
 function getCenter(coords) {
   var latSum = 0;
@@ -58,11 +67,12 @@ global.initMap = () => {
       isFuture ? 'Future predictions for Bakersfield, CA' : 'Current data for Bakersfield, CA'
 
     hoodsThatChange.forEach((hood) => {
-      var color = COLORS[isFuture ? hood.future : hood.present];
+      var color = COLORS[isFuture ? 2 : hood.present];
       hood.polygons.forEach((polygon) => {
         polygon.setOptions({
           strokeColor: color,
           fillColor: color,
+          fillOpacity: isFuture ? 0.7 : 0.35,
         });
       });
     });
@@ -101,7 +111,7 @@ global.initMap = () => {
     // var present = index % 2;
     var present = 0 + (withSolar[regionId] ? 1 : 0);
     // var color = COLORS[good];
-    var future = predictions[regionId] || present;
+    var future = predictions[regionId] || switchToFuture[regionId] || present;
 
     var color = COLORS[isFuture ? future : present];
     var myData = hoodData[regionId] || {};
