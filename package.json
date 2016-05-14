@@ -18,6 +18,7 @@
   },
   "dependencies": {
     "express": "*",
+    "geocoder": "^0.2.2",
     "geolib": "^2.0.21",
     "json-loader": "^0.5.4",
     "jsonfile": "^2.3.1",
