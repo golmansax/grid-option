@@ -8,7 +8,7 @@
     "npm": "3.8.x"
   },
   "scripts": {
-    "start": "nodemon server.js -e js,pug",
+    "start": "nodemon server.js -e js,pug,styl",
     "webpack": "webpack-dev-server --content-base /dist/"
   },
   "devDependencies": {
