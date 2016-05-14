@@ -1,4 +1,5 @@
 var bakerHoods = require('../data/neighborhoods/bakersfield.json');
+var bakerHomes = require('../data/kern.json');
 
 function getCoords(coords) {
   return coords.map((coord) => {
@@ -9,7 +10,7 @@ function getCoords(coords) {
   });
 }
 
-var COLORS = ['#FF0000', '#00FF00'];
+var COLORS = ['#e86828', '#828282'];
 
 function getCenter(coords) {
   var latSum = 0;
@@ -24,6 +25,7 @@ function getCenter(coords) {
 }
 
 var lastWindow = null;
+var hoodData = {};
 
 global.initMap = () => {
   var center = { lat: 35.3733, lng: -119.0187 };
@@ -33,9 +35,32 @@ global.initMap = () => {
     mapTypeId: google.maps.MapTypeId.ROADMAP,
   });
 
+  var graphHouse = (coords) => {
+    var marker = new google.maps.Circle({
+      center: coords,
+      map: map,
+      radius: 40,
+      strokeOpacity: 0,
+      fillColor: '#222',
+    });
+  };
+  var houses = [
+    { lat: 35.387531, lng: -119.1192875, kw: '100', regionId: 272766 },
+  ];
+
+  houses.forEach((house) => {
+    graphHouse(house);
+
+    var regionId = house.regionId;
+    hoodData[regionId] = hoodData[regionId] || { kwSum: 0, homeCount: 0 };
+    hoodData[regionId].homeCount++;
+    hoodData[regionId].kwSum += house.kw;
+  });
+
   bakerHoods.forEach((hood, index) => {
     var color = COLORS[index % 2];
     var hoodName = hood.properties.NAME;
+    var myData = hoodData[hood.properties.REGIONID] || {};
 
     return hood.geometry.coordinates.map((coords) => {
       // Construct the polygon.
@@ -55,8 +80,8 @@ global.initMap = () => {
         content: [
           '<div>',
           `<h3>${hoodName}</h3>`,
-          `<p>kW installed: 5</p>`,
-          `<p>Num installations: 5</p>`,
+          `<p>kW installed: ${myData.kwSum || 0}</p>`,
+          `<p>Num installations: ${myData.homeCount || 0}</p>`,
           `<p>% installations: 5</p>`,
           '</div>',
         ].join(''),
