@@ -3,6 +3,7 @@ var server = express();
 var stylus = require('stylus');
 var nib = require('nib');
 var morgan = require('morgan');
+var grid = require('./gridDB');
 
 var env = process.env.NODE_ENV || 'development';
 
@@ -40,6 +41,11 @@ server.get('/', (req, res) => {
   res.render('index');
 });
 
+server.get('/kern', (req, res) => {
+    grid().then(function(arr) {
+        res.json(arr);
+    });
+});
 
 server.listen(3000, function () {
   console.log("Listening on port 3000");
