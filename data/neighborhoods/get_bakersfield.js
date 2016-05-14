@@ -1,8 +1,15 @@
 #!/usr/bin/env node
 
-var fs = require('fs');
+var jsonfile = require('jsonfile')
 var path = require('path');
 
-var obj = JSON.parse(fs.readFileSync(path.join(__dirname, 'california_neighborhoods.json', 'utf8'));
+var file = path.join(__dirname, 'california.json');
 
+var obj = jsonfile.readFileSync(file);
+var features = obj.features;
 
+var bakersfieldFeatures = features.filter((feature) => feature.properties.CITY === 'Bakersfield');
+console.log(`Found ${bakersfieldFeatures.length} hoods for Bakersfield`);
+
+var outputFile = path.join(__dirname, 'bakersfield.json');
+jsonfile.writeFileSync(outputFile, bakersfieldFeatures, {spaces: 2})
