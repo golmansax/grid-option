@@ -3,11 +3,18 @@
   "version": "0.0.1",
   "description": "A site",
   "main": "index.js",
-  "engines" : {
-    "node" : "^6.0.0",
-    "npm" : "3.8.x"
+  "engines": {
+    "node": "^6.0.0",
+    "npm": "3.8.x"
+  },
+  "scripts": {
+    "start": "nodemon index.js -e js,pug"
+  },
+  "devDependencies": {
+    "nodemon": "*"
   },
   "dependencies": {
-    "express": "*"
+    "express": "*",
+    "pug": "^2.0.0-alpha7"
   }
 }

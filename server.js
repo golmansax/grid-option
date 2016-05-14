@@ -1,8 +1,10 @@
 var express = require('express');
 var server = express();
 
+server.set('view engine', 'pug');
+
 server.get('/', (req, res) => {
-  res.send('Hello, world');
+  res.render('index');
 });
 
 
