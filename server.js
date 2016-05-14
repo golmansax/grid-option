@@ -3,7 +3,7 @@ var server = express();
 var stylus = require('stylus');
 var nib = require('nib');
 var morgan = require('morgan');
-var grid = require('./scripts/gridDB');
+var kern = require('./scripts/kernDB');
 
 var env = process.env.NODE_ENV || 'development';
 
@@ -42,7 +42,7 @@ server.get('/', (req, res) => {
 });
 
 server.get('/kern', (req, res) => {
-    grid().then(function(arr) {
+    kern().then(function(arr) {
         res.json(arr);
     });
 });
