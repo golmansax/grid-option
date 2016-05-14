@@ -8,16 +8,21 @@
     "npm": "3.8.x"
   },
   "scripts": {
-    "start": "nodemon server.js -e js,pug"
+    "start": "nodemon server.js -e js,pug",
+    "webpack": "webpack-dev-server --content-base /dist/"
   },
   "devDependencies": {
-    "nodemon": "*"
+    "http-proxy": "^1.13.2",
+    "nodemon": "*",
+    "webpack-dev-server": "^1.14.1"
   },
   "dependencies": {
     "express": "*",
     "jsonfile": "^2.3.1",
+    "morgan": "^1.7.0",
     "nib": "^1.1.0",
     "pug": "^2.0.0-alpha7",
-    "stylus": "^0.54.5"
+    "stylus": "^0.54.5",
+    "webpack": "^1.13.0"
   }
 }
