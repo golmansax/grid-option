@@ -35,6 +35,8 @@ global.initMap = () => {
 
   bakerHoods.forEach((hood, index) => {
     var color = COLORS[index % 2];
+    var hoodName = hood.properties.NAME;
+
     return hood.geometry.coordinates.map((coords) => {
       // Construct the polygon.
       var polygon = new google.maps.Polygon({
@@ -50,7 +52,14 @@ global.initMap = () => {
 
       var center = getCenter(getCoords(coords));
       var infowindow = new google.maps.InfoWindow({
-        content: '<div>Hello world</div>',
+        content: [
+          '<div>',
+          `<h3>${hoodName}</h3>`,
+          `<p>kW installed: 5</p>`,
+          `<p>Num installations: 5</p>`,
+          `<p>% installations: 5</p>`,
+          '</div>',
+        ].join(''),
         position: center,
       });
 
