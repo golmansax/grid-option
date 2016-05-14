@@ -4,6 +4,22 @@ var predictions = require('../data/quandl/real_predictions.json');
 
 var isFuture = location.pathname.indexOf('future') >= 0;
 
+var withSolar = {
+  273528: true,
+  274019: true,
+  272843: true,
+  273584: true,
+  274211: true,
+  273308: true,
+  273495: true,
+  272940: true,
+  275579: true,
+  275482: true,
+  276240: true,
+  275156: true,
+  273154: true,
+};
+
 function getCoords(coords) {
   return coords.map((coord) => {
     return { lat: coord[1], lng: coord[0] };
@@ -79,13 +95,16 @@ global.initMap = () => {
   });
 
   bakerHoods.forEach((hood, index) => {
-    var present = index % 2;
+    var hoodName = hood.properties.NAME;
+    var regionId = hood.properties.REGIONID;
+
+    // var present = index % 2;
+    var present = 0 + (withSolar[regionId] ? 1 : 0);
     // var color = COLORS[good];
-    var future = predictions[hood.properties.REGIONID] || present;
+    var future = predictions[regionId] || present;
 
     var color = COLORS[isFuture ? future : present];
-    var hoodName = hood.properties.NAME;
-    var myData = hoodData[hood.properties.REGIONID] || {};
+    var myData = hoodData[regionId] || {};
 
     var polygons = hood.geometry.coordinates.map((coords) => {
       // Construct the polygon.
@@ -105,9 +124,9 @@ global.initMap = () => {
         content: [
           '<div>',
           `<h3>${hoodName}</h3>`,
+          `<h3>${regionId}</h3>`,
           `<p>kW installed: ${myData.kwSum || 0}</p>`,
           `<p>Num installations: ${myData.homeCount || 0}</p>`,
-          `<p>% installations: 5</p>`,
           '</div>',
         ].join(''),
         position: center,
@@ -118,7 +137,10 @@ global.initMap = () => {
         infowindow.open(map);
         lastWindow = infowindow;
       });
+
+      return polygon;
     });
+    console.log(polygons);
 
     if (future !== present) {
       hoodsThatChange.push({ polygons, future, present });
