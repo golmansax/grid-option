@@ -1,0 +1,13 @@
+{
+  "name": "grid-option",
+  "version": "0.0.1",
+  "description": "A site",
+  "main": "index.js",
+  "engines" : {
+    "node" : "^6.0.0",
+    "npm" : "3.8.x"
+  },
+  "dependencies": {
+    "express": "*"
+  }
+}
