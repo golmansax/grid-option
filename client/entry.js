@@ -41,19 +41,16 @@ global.initMap = () => {
     var marker = new google.maps.Circle({
       center: coords,
       map: map,
-      radius: 40,
+      radius: 60,
       strokeOpacity: 0,
-      fillColor: '#222',
+      fillColor: '#e86828',
+      fillOpacity: .8,
     });
   };
-  var houses = [
-    { lat: 35.387531, lng: -119.1192875, kw: '100', regionId: 272766 },
-  ];
+  bakerHomes.forEach((house) => {
+    graphHouse(house.geoLocation);
 
-  houses.forEach((house) => {
-    graphHouse(house);
-
-    var regionId = house.regionId;
+    var regionId = house.regionId || 'blah';
     hoodData[regionId] = hoodData[regionId] || { kwSum: 0, homeCount: 0 };
     hoodData[regionId].homeCount++;
     hoodData[regionId].kwSum += house.kw;
