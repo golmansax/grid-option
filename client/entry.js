@@ -11,6 +11,20 @@ function getCoords(coords) {
 
 var COLORS = ['#FF0000', '#00FF00'];
 
+function getCenter(coords) {
+  var latSum = 0;
+  var lngSum = 0;
+
+  coords.forEach((coord) => {
+    latSum += coord.lat;
+    lngSum += coord.lng;
+  });
+
+  return { lat: latSum / coords.length, lng: lngSum / coords.length };
+}
+
+var lastWindow = null;
+
 global.initMap = () => {
   var center = { lat: 35.3733, lng: -119.0187 };
   var map = new google.maps.Map(document.getElementById('map'), {
@@ -18,13 +32,12 @@ global.initMap = () => {
     zoom: 12,
     mapTypeId: google.maps.MapTypeId.ROADMAP,
   });
-  console.log(bakerHoods.length);
 
   bakerHoods.forEach((hood, index) => {
     var color = COLORS[index % 2];
     return hood.geometry.coordinates.map((coords) => {
       // Construct the polygon.
-      var bermudaTriangle = new google.maps.Polygon({
+      var polygon = new google.maps.Polygon({
         paths: getCoords(coords),
         strokeColor: color,
         strokeOpacity: 0.8,
@@ -33,7 +46,19 @@ global.initMap = () => {
         fillOpacity: 0.35
       });
 
-      bermudaTriangle.setMap(map);
+      polygon.setMap(map);
+
+      var center = getCenter(getCoords(coords));
+      var infowindow = new google.maps.InfoWindow({
+        content: '<div>Hello world</div>',
+        position: center,
+      });
+
+      polygon.addListener('click', function() {
+        if (lastWindow) { lastWindow.close(); }
+        infowindow.open(map);
+        lastWindow = infowindow;
+      });
     });
   });
 };
