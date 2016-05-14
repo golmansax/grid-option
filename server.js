@@ -38,7 +38,11 @@ if (isDev()) {
 server.use(express.static('public'));
 
 server.get('/', (req, res) => {
-  res.render('index');
+  res.render('index', { future: false });
+});
+
+server.get('/future', (req, res) => {
+  res.render('index', { future: true });
 });
 
 server.get('/kern', (req, res) => {

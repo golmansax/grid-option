@@ -5,7 +5,11 @@ html
     link(href='styles/main.css', rel='stylesheet', type='text/css')
   body
     div(id="topbar")
-      h1 Grid Option
+      h2
+        = future ? 'Future predictions ' : 'Current data '
+        = 'for Bakersfield, CA'
+      a(href=(future ? '/' : '/future'), class="switch")
+        = future ? 'Show current data' : 'Show future predictions'
     div(id="map-container")
       div(id="map")
     script(src="/dist/bundle.js")
