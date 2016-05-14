@@ -8,5 +8,9 @@ module.exports = {
     publicPath: "/dist/",
     filename: "bundle.js"
   },
-  module: {}
+  module: {
+    loaders: [
+      { test: /\.json/, loader: 'json' },
+    ],
+  },
 };
