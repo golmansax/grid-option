@@ -3,9 +3,6 @@ var bakerHomes = require('../data/kern.json');
 
 function getCoords(coords) {
   return coords.map((coord) => {
-    if (Array.isArray(coord[0])) {
-      console.log(coord);
-    }
     return { lat: coord[1], lng: coord[0] };
   });
 }
