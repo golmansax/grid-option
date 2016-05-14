@@ -2,13 +2,13 @@
   "name": "grid-option",
   "version": "0.0.1",
   "description": "A site",
-  "main": "index.js",
+  "main": "server.js",
   "engines": {
     "node": "^6.0.0",
     "npm": "3.8.x"
   },
   "scripts": {
-    "start": "nodemon index.js -e js,pug"
+    "start": "nodemon server.js -e js,pug"
   },
   "devDependencies": {
     "nodemon": "*"
