@@ -3,7 +3,7 @@ var server = express();
 var stylus = require('stylus');
 var nib = require('nib');
 var morgan = require('morgan');
-var grid = require('./gridDB');
+var grid = require('./scripts/gridDB');
 
 var env = process.env.NODE_ENV || 'development';
 
