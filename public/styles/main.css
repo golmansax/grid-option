@@ -1,7 +1,13 @@
+.logo {
+  position: absolute;
+  top: 0.3em;
+  left: 0.5em;
+  height: 80%;
+}
 #topbar {
   position: fixed;
-  background-color: #222;
-  color: #eee;
+  background-color: #fff;
+  color: #666;
   height: 50px;
   top: 0;
   left: 0;
@@ -16,7 +22,7 @@
   position: absolute;
   top: 1em;
   right: 0.5em;
-  color: #eee;
+  color: #e86828;
 }
 html,
 body {
