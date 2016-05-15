@@ -205,7 +205,6 @@ global.initMap = () => {
 
       return polygon;
     });
-    console.log(polygons);
 
     if (future !== present) {
       hoodsThatChange.push({ polygons, future, present });

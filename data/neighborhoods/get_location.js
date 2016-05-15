@@ -1,5 +1,8 @@
 #!/usr/bin/env node
 
+var env = process.env.NODE_ENV || 'development';
+if (env === 'development') { require('dotenv').config(); }
+
 var geocoder = require('geocoder')
 var jsonfile = require('jsonfile')
 var kern = require('../../scripts/kernDB');
@@ -8,7 +11,7 @@ var path = require('path');
 
 var idToLatLng = {};
 
-geocoder.selectProvider("google",{"key":"AIzaSyDCSkvz2pjNpYm56hxvi502X3MyluXd90E", "region": "US"});
+geocoder.selectProvider("google",{"key":, process.env.GOOGLE_MAPS_SERVER_API_KEY, "region": "US"});
 
 var tempKern = [
   {

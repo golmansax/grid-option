@@ -1,5 +1,8 @@
 #!/usr/bin/env node
 
+var env = process.env.NODE_ENV || 'development';
+if (env === 'development') { require('dotenv').config(); }
+
 var Promise = require('bluebird');
 var fs = require('fs');
 var request = require('request');
@@ -8,7 +11,7 @@ var ids = require('./hoods.json');
 var path = require('path');
 
 var indicator = 'RAH';
-var api_key = 'dpK5_-san8KjQt4i9QVe';
+var api_key = process.env.QUANDL_API_KEY;
 
 var data = {};
 

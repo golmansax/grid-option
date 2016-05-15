@@ -1,3 +1,6 @@
+var env = process.env.NODE_ENV || 'development';
+if (env === 'development') { require('dotenv').config(); }
+
 var express = require('express');
 var server = express();
 var stylus = require('stylus');
@@ -5,7 +8,7 @@ var nib = require('nib');
 var morgan = require('morgan');
 var kern = require('./scripts/kernDB');
 
-var env = process.env.NODE_ENV || 'development';
+var googleMapsKey = process.env.GOOGLE_MAPS_CLIENT_API_KEY;
 
 function isDev() {
   return env === 'development';
@@ -38,11 +41,11 @@ if (isDev()) {
 server.use(express.static('public'));
 
 server.get('/', (req, res) => {
-  res.render('index', { future: false });
+  res.render('index', { future: false, googleMapsKey });
 });
 
 server.get('/future', (req, res) => {
-  res.render('index', { future: true });
+  res.render('index', { future: true, googleMapsKey });
 });
 
 server.get('/kern', (req, res) => {
