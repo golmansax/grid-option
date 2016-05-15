@@ -4,6 +4,9 @@
   left: 0.5em;
   height: 80%;
 }
+h4 {
+  font-weight: 400;
+}
 #topbar {
   position: fixed;
   background-color: #fff;

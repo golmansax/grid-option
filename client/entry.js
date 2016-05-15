@@ -189,8 +189,9 @@ global.initMap = () => {
         content: [
           '<div>',
           `<h3>${hoodName}</h3>`,
-          `<p>kW installed: ${myData.kwSum || 0}</p>`,
-          `<p>Num installations: ${myData.homeCount || 0}</p>`,
+          `<h4>Bakersfield, CA</h4>`,
+          `<p><strong>kW installed</strong>: ${myData.kwSum || 0}</p>`,
+          `<p><strong>Num installations</strong>: ${myData.homeCount || 0}</p>`,
           '</div>',
         ].join(''),
         position: center,
