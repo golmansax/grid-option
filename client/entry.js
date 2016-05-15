@@ -50,7 +50,62 @@ function getCenter(coords) {
 }
 
 var lastWindow = null;
-var hoodData = {};
+var avgUsage = 7.1; // this would be computed from the assoc_hood module
+
+var hoodData = {
+  273308: {
+    kwSum: avgUsage * 2,
+    homeCount: 2
+  },
+  274019: {
+    kwSum: avgUsage * 31,
+    homeCount: 31
+  },
+  272843: {
+    kwSum: avgUsage * 39,
+    homeCount: 39
+  },
+  273584: {
+    kwSum: avgUsage * 1,
+    homeCount: 1
+  },
+  273528: {
+    kwSum: avgUsage * 19,
+    homeCount: 19
+  },
+  274211: {
+    kwSum: avgUsage * 15,
+    homeCount: 15
+  },
+  273495: {
+    kwSum: avgUsage * 5,
+    homeCount: 5
+  },
+  275579: {
+    kwSum: avgUsage * 8,
+    homeCount: 8
+  },
+  272940: {
+    kwSum: avgUsage * 32,
+    homeCount: 32
+  },
+  276240: {
+    kwSum: avgUsage * 15,
+    homeCount: 15
+  },
+  275156: {
+    kwSum: avgUsage * 15,
+    homeCount: 15
+  },
+  273154: {
+    kwSum: avgUsage * 5,
+    homeCount: 5
+  },
+  275482: {
+    kwSum: avgUsage * 4,
+    homeCount: 4
+  },
+};
 
 var hoodsThatChange = [];
 
