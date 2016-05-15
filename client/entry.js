@@ -189,7 +189,6 @@ global.initMap = () => {
         content: [
           '<div>',
           `<h3>${hoodName}</h3>`,
-          `<h3>${regionId}</h3>`,
           `<p>kW installed: ${myData.kwSum || 0}</p>`,
           `<p>Num installations: ${myData.homeCount || 0}</p>`,
           '</div>',
